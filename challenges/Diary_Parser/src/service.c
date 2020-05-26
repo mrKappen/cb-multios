@@ -570,12 +570,13 @@ int cgc_parse_book(uint8_t* buff, int rcv_len, int first_offset)
 			// Problem: this chapter is over, need to point to the next chapter
 			continue;
 		}
+		//TK: buffer check is happening in chapter with titles that are not HOBBIES but not chapters that are Hobbies:: VUL 1
 		else if (!is_subtitle)
 		{	// this is a normal chapter, so point to titles
 			names = titles;
 			entry_table = entry_info_table;
 
-			#ifndef PATCHED
+		#ifndef PATCHED
 
 			if ((t = cgc_verify_chapter(chapter)) != 0)
 			{
@@ -831,7 +832,7 @@ void cgc_test_win()
 		#else
 		int max_len = 9;
 		#endif
-
+//TK: buffer overflow vulnerbility:: the buff is size 10 but you write up to 25 :: VUL 2
 		// WIN
 		cgc_printf("What is your family's last name?\n");
 		int len = cgc_receive_until(buff, '\n', max_len);

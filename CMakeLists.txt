@@ -105,7 +105,10 @@ function(build path target)
 
     target_link_libraries(${target} LINK_PUBLIC cgc)
     target_link_libraries(${target}_patched LINK_PUBLIC cgc)
-
+    add_custom_command(TARGET ${target} POST_BUILD 
+    COMMAND get-bc ${target}
+    COMMAND llvm-dis ${target}.bc
+    COMMAND opt ${target}.ll -dot-callgraph)
     IF(WIN32)
         # Copy required DLLs post-build
         add_custom_command(

@@ -45,4 +45,5 @@ fi
 
 cmake $CMAKE_OPTS ..
 
-cmake --build . $BUILD_FLAGS
+#cmake --build . $BUILD_FLAGS
+make $BUILD_FLAGS -k
